@@ -1,0 +1,212 @@
+version: 2
+template:
+  name: Develop a Kubernetes app
+  description: kube-toolchain-20201028203844453
+  required:
+    - pipeline-repo
+    - repo
+    - tekton-catalog-repo
+    - tekton-catalog-repo-nadgowdas
+toolchain:
+  name: kube-toolchain-20201028203844453
+services:
+  tekton-catalog-repo-nadgowdas:
+    parameters:
+      extra_capabilities:
+        - capability_id: git.issues
+          display_name: Issues
+          dashboard_url: https://github.com/nadgowdas/tekton-catalog/issues
+          label: tekton-catalog
+          tags:
+            - think
+            - code
+          enabled: false
+          readme: false
+      label: tekton-catalog
+      type: link
+      repo_url: https://github.com/nadgowdas/tekton-catalog.git
+      source_repo_url: https://github.com/nadgowdas/tekton-catalog
+      has_issues: false
+      enable_traceability: false
+      kind:
+        - pipeline
+      kind[0]: '[Circular]'
+      legal_label: ""
+      legal: false
+      git_id: github
+      blind_connection: false
+      custom_host: ""
+      namespace_table: ""
+      private_repo: false
+      auto_init: false
+      authorized: github
+      integration_owner: IBMid-0600029VWY
+      owner_id: nadgowdas
+      repo_name: tekton-catalog
+      api_root_url: https://api.github.com
+      token_url: https://otc-github-consolidated-broker.us-south.devops.cloud.ibm.com/github/token?git_id=github
+    service_id: githubconsolidated
+  tekton-catalog-repo:
+    parameters:
+      extra_capabilities:
+        - capability_id: git.issues
+          display_name: Issues
+          dashboard_url: https://github.com/open-toolchain/tekton-catalog/issues
+          label: tekton-catalog
+          tags:
+            - think
+            - code
+          enabled: false
+          readme: false
+      label: tekton-catalog
+      type: link
+      repo_url: https://github.com/open-toolchain/tekton-catalog.git
+      source_repo_url: https://github.com/open-toolchain/tekton-catalog
+      has_issues: false
+      enable_traceability: false
+      kind:
+        - pipeline
+      kind[0]: '[Circular]'
+      legal_label: ""
+      legal: false
+      git_id: github
+      blind_connection: false
+      custom_host: ""
+      namespace_table: ""
+      private_repo: false
+      auto_init: false
+      authorized: github
+      integration_owner: IBMid-0600029VWY
+      owner_id: open-toolchain
+      repo_name: tekton-catalog
+      api_root_url: https://api.github.com
+      token_url: https://otc-github-consolidated-broker.us-south.devops.cloud.ibm.com/github/token?git_id=github
+    service_id: githubconsolidated
+  devops-insights:
+    parameters:
+      cf_controller: https://api.us-south.cf.cloud.ibm.com
+      dra_server: https://gateservice.us-south.devopsinsights.cloud.ibm.com
+      dlms_server: https://dlms.us-south.devopsinsights.cloud.ibm.com
+      dashboard_url: https://cloud.ibm.com/devops/insights/overview?toolchainId=9927d965-99f0-4c3c-9dcc-546b7bc282de
+      env_id: ibm:yp:us-south
+    service_id: draservicebroker
+  pipeline-repo:
+    parameters:
+      extra_capabilities:
+        - capability_id: git.issues
+          display_name: Issues
+          dashboard_url: https://github.com/padraic-edwards/secure-kube-toolchain/issues
+          label: secure-kube-toolchain
+          tags:
+            - think
+            - code
+          enabled: false
+          readme: false
+      label: secure-kube-toolchain
+      type: link
+      repo_url: https://github.com/padraic-edwards/secure-kube-toolchain.git
+      source_repo_url: https://github.com/open-toolchain/secure-kube-toolchain
+      has_issues: false
+      enable_traceability: false
+      legal: true
+      kind:
+        - pipeline
+      legal_label: ""
+      git_id: github
+      blind_connection: false
+      custom_host: ""
+      namespace_table: ""
+      private_repo: false
+      auto_init: false
+      authorized: github
+      integration_owner: IBMid-0600029VWY
+      owner_id: padraic-edwards
+      repo_name: secure-kube-toolchain
+      api_root_url: https://api.github.com
+      token_url: https://otc-github-consolidated-broker.us-south.devops.cloud.ibm.com/github/token?git_id=github
+    service_id: githubconsolidated
+  repo:
+    parameters:
+      extra_capabilities:
+        - capability_id: git.issues
+          display_name: Issues
+          dashboard_url: https://github.com/skaegi/hello-containers-20201028203844453/issues
+          label: hello-containers-20201028203844453
+          tags:
+            - think
+            - code
+          enabled: true
+          readme: false
+      label: hello-containers-20201028203844453
+      type: link
+      repo_name: hello-containers-20201028203844453
+      repo_url: https://github.com/skaegi/hello-containers-20201028203844453.git
+      source_repo_url: https://github.com/open-toolchain/hello-containers
+      has_issues: true
+      enable_traceability: true
+      legal: true
+      legal_label: ""
+      git_id: github
+      blind_connection: false
+      custom_host: ""
+      namespace_table: ""
+      owner_id: skaegi
+      private_repo: false
+      auto_init: false
+      authorized: github
+      integration_owner: IBMid-0600029VWY
+      api_root_url: https://api.github.com
+      token_url: https://otc-github-consolidated-broker.us-south.devops.cloud.ibm.com/github/token?git_id=github
+    service_id: githubconsolidated
+  build:
+    parameters:
+      label: hello-containers-20201028203844453
+      type: tekton
+      name: hello-containers-20201028203844453
+      ui-pipeline: true
+      configuration:
+        execute: false
+        env:
+          pipeline-repo: pipeline-repo
+          repo: repo
+          tekton-catalog-repo-nadgowdas: tekton-catalog-repo-nadgowdas
+          tekton-catalog-repo: tekton-catalog-repo
+        content:
+          $text: pipeline_build.yml
+      services[0]: '[Circular]'
+      services[1]: '[Circular]'
+      services[2]: '[Circular]'
+      ui_pipeline: true
+      services:
+        - pipeline-repo
+        - repo
+        - tekton-catalog-repo
+        - tekton-catalog-repo-nadgowdas
+    service_id: pipeline
+  webide:
+    parameters:
+      toolchain_id: 9927d965-99f0-4c3c-9dcc-546b7bc282de
+      dashboard_url: /devops/code/edit/edit.html#,toolchain=9927d965-99f0-4c3c-9dcc-546b7bc282de
+    service_id: orion
+  pr:
+    parameters:
+      label: pr-pipeline
+      type: tekton
+      name: pr-pipeline
+      ui-pipeline: true
+      configuration:
+        execute: false
+        env:
+          pipeline-repo: pipeline-repo
+          repo: repo
+          tekton-catalog-repo-nadgowdas: tekton-catalog-repo-nadgowdas
+          tekton-catalog-repo: tekton-catalog-repo
+        content:
+          $text: pipeline_pr.yml
+      ui_pipeline: true
+      services:
+        - pipeline-repo
+        - repo
+        - tekton-catalog-repo
+        - tekton-catalog-repo-nadgowdas
+    service_id: pipeline

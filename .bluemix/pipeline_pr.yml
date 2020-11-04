@@ -1,0 +1,46 @@
+properties:
+  - name: apikey
+    value: ""
+    type: secure
+  - name: pipeline-debug
+    value: "0"
+    type: text
+triggers:
+  - type: git
+    branch: master
+    events:
+      push: false
+      pull_request: true
+      pull_request_closed: false
+    name: Git PR Trigger
+    eventListener: github-pr-listener
+    service: ${repo}
+inputs:
+  - type: git
+    path: .pr-pipeline
+    branch: gitsecureV3
+    service: ${pipeline-repo}
+  - type: git
+    path: git
+    branch: master
+    service: ${tekton-catalog-repo}
+  - type: git
+    path: toolchain
+    branch: master
+    service: ${tekton-catalog-repo}
+  - type: git
+    path: cra
+    branch: cra-rc2
+    service: ${tekton-catalog-repo-nadgowdas}
+  - type: git
+    path: linter
+    branch: master
+    service: ${tekton-catalog-repo}
+  - type: git
+    path: tester
+    branch: master
+    service: ${tekton-catalog-repo}
+  - type: git
+    path: utils
+    branch: master
+    service: ${tekton-catalog-repo}

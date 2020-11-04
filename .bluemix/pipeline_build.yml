@@ -1,0 +1,85 @@
+properties:
+  - name: apikey
+    value: ""
+    type: secure
+  - name: app-name
+    value: hello-containers-20201028203844453
+    type: text
+  - name: cluster-name
+    value: mycluster-free
+    type: text
+  - name: dev-cluster-namespace
+    value: prod
+    type: text
+  - name: dev-region
+    value: ibm:yp:us-south
+    type: text
+  - name: dev-resource-group
+    value: default
+    type: text
+  - name: image-name
+    value: hello-containers-20201028203844453
+    type: text
+  - name: registry-namespace
+    value: skaegi
+    type: text
+  - name: registry-region
+    value: ibm:yp:us-south
+    type: text
+  - type: secure
+    name: toolchain-apikey
+    value: ""
+triggers:
+  - type: git
+    branch: master
+    events:
+      push: true
+      pull_request: false
+      pull_request_closed: false
+    name: commit-push
+    eventListener: github-ci-listener
+    service: ${repo}
+  - type: manual
+    name: manual-run
+    eventListener: manual-run
+inputs:
+  - type: git
+    path: .pipeline
+    branch: gitsecureV3
+    service: ${pipeline-repo}
+  - type: git
+    path: git
+    branch: master
+    service: ${tekton-catalog-repo}
+  - type: git
+    path: container-registry
+    branch: master
+    service: ${tekton-catalog-repo}
+  - type: git
+    path: kubernetes-service
+    branch: master
+    service: ${tekton-catalog-repo}
+  - type: git
+    path: toolchain
+    branch: master
+    service: ${tekton-catalog-repo}
+  - type: git
+    path: cra
+    branch: cra-rc2
+    service: ${tekton-catalog-repo-nadgowdas}
+  - type: git
+    path: devops-insights
+    branch: master
+    service: ${tekton-catalog-repo}
+  - type: git
+    path: linter
+    branch: master
+    service: ${tekton-catalog-repo}
+  - type: git
+    path: tester
+    branch: master
+    service: ${tekton-catalog-repo}
+  - type: git
+    path: utils
+    branch: master
+    service: ${tekton-catalog-repo}
